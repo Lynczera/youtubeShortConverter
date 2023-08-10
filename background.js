@@ -13,13 +13,7 @@ async function backGdRedirect() {
 				urlToGo = tab.url.replace("shorts", "watch");
 				videoID = tab.url.split("/").at(-1);
 
-				chrome.storage.session.set({ [videoID]: "true" }, () => {
-					if (chrome.runtime.lastError) {
-						console.error(chrome.runtime.lastError);
-					} else {
-						console.log("Data saved.");
-					}
-				});
+				chrome.storage.session.set({ [videoID]: "true" });
 				chrome.tabs.update({ url: urlToGo });
 			} else if (tab.url.includes("watch")) {
 				var regExp =

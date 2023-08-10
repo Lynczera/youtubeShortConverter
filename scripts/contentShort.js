@@ -49,7 +49,6 @@ function insertButtonOnShort() {
 
 	var focus;
 	const menu = document.querySelectorAll("ytd-reel-video-renderer");
-	console.log(menu);
 	menu.forEach((el) => {
 		if (el.attributes["is-active"]) {
 			focus = el;
