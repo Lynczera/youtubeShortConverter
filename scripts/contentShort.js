@@ -1,7 +1,7 @@
-function redirectToVid(){
-	chrome.runtime.sendMessage({message: "redirect"});
+function redirectToVid() {
+	chrome.runtime.sendMessage({ message: "redirect" });
 }
-function insertButton() {
+function insertButtonOnShort() {
 	var possibleBtn = [];
 	const containers = document.querySelectorAll(
 		"ytd-reel-player-overlay-renderer"
@@ -13,7 +13,6 @@ function insertButton() {
 	}
 
 	if (possibleBtn) {
-
 		possibleBtn.forEach((btn) => {
 			if (btn) {
 				btn.remove();
@@ -36,7 +35,7 @@ function insertButton() {
 		"yt-spec-button-shape-next--size-l",
 		"yt-spec-button-shape-next--icon-button"
 	);
-	convertBtn.onclick = ()=>redirectToVid();
+	convertBtn.onclick = () => redirectToVid();
 
 	const icon = document.createElement("img");
 	icon.src = chrome.runtime.getURL("icons/iconWebCol.png");
@@ -62,10 +61,8 @@ function insertButton() {
 		container.insertAdjacentElement("afterbegin", convertDiv);
 	}
 }
-console.log("content injected");
+var delayInMilliseconds = 900;
 
-var delayInMilliseconds = 1000;
-
-setTimeout(function() {
-	insertButton();
+setTimeout(function () {
+	insertButtonOnShort();
 }, delayInMilliseconds);
