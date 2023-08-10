@@ -2,8 +2,6 @@ function redirectToVid() {
 	chrome.runtime.sendMessage({ message: "redirect" });
 }
 function insertButtonOnShort() {
-
-
 	const convertBtn = document.createElement("button");
 	convertBtn.id = "convert-button";
 	convertBtn.classList.add("ytp-mute-button", "ytp-button");
@@ -17,9 +15,7 @@ function insertButtonOnShort() {
 
 	convertBtn.appendChild(icon);
 
-
 	const controldiv = document.querySelector(".ytp-left-controls");
 
 	controldiv.insertAdjacentElement("beforeend", convertBtn);
-
 }
