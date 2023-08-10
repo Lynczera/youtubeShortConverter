@@ -5,14 +5,14 @@ chrome.action.onClicked.addListener(async (tab) => {
 		urlToGo = tab.url.replace("shorts", "watch");
 		videoID = tab.url.split("/").at(-1);
 
-		chrome.storage.local.set({ [videoID]: "true" }, () => {
+		chrome.storage.session.set({ [videoID]: "true" }, () => {
 			if (chrome.runtime.lastError) {
 				console.error(chrome.runtime.lastError);
 			} else {
 				console.log("Data saved.");
 			}
 		});
-    chrome.tabs.update({ url: urlToGo });
+		chrome.tabs.update({ url: urlToGo });
 	} else if (tab.url.includes("watch")) {
 		var regExp =
 			/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
@@ -24,18 +24,34 @@ chrome.action.onClicked.addListener(async (tab) => {
 		}
 
 		if (videoID) {
-			chrome.storage.local.get([videoID]).then((result) => {
+			chrome.storage.session.get([videoID]).then((result) => {
 				if (JSON.parse(result[videoID])) {
-					console.log("worked");
-
 					urlToGo = `https://www.youtube.com/shorts/${videoID}`;
-          chrome.tabs.update({ url: urlToGo });
+					chrome.storage.session.remove(videoID);
+					chrome.tabs.update({ url: urlToGo });
 				}
 			});
 		} else {
-			console.log("Not a short");
 			urlToGo = null;
 		}
 	}
-
 });
+
+try{
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+	const url = tab.url;
+	
+	if (changeInfo.status === "complete" && url.includes("shorts")) {
+		console.log(url);
+		chrome.scripting.executeScript({
+			files : ['scripts/content.js'],
+			target : {tabId : tab.id}
+		})
+
+	}
+});
+}catch(err){
+
+}
+
+

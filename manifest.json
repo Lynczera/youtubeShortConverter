@@ -15,7 +15,20 @@
 	"background": {
 		"service_worker": "background.js"
 	},
-	"permissions": ["activeTab", "storage"],
+	"content_scripts": [
+		{
+			"js": ["scripts/content.js"],
+			"matches": ["https://www.youtube.com/shorts/*"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["icons/iconWebCol.png"],
+			"matches": ["https://www.youtube.com/*"]
+		}
+	],
+	"permissions": ["activeTab", "storage", "scripting", "tabs"],
+	"host_permissions": ["<all_urls>"],
 	"commands": {
 		"_execute_action": {
 			"suggested_key": {
