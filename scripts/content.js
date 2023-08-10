@@ -1,3 +1,6 @@
+function redirectToVid(){
+	chrome.runtime.sendMessage({message: "redirect"});
+}
 function insertButton() {
 	var possibleBtn = [];
 	const containers = document.querySelectorAll(
@@ -10,7 +13,6 @@ function insertButton() {
 	}
 
 	if (possibleBtn) {
-		console.log(possibleBtn);
 
 		possibleBtn.forEach((btn) => {
 			if (btn) {
@@ -34,6 +36,7 @@ function insertButton() {
 		"yt-spec-button-shape-next--size-l",
 		"yt-spec-button-shape-next--icon-button"
 	);
+	convertBtn.onclick = ()=>redirectToVid();
 
 	const icon = document.createElement("img");
 	icon.src = chrome.runtime.getURL("icons/iconWebCol.png");
