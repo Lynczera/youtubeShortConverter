@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Youtube short to video converter",
-	"version": "1.0.1",
+	"version": "2.0.1",
 	"description": "Convert a Youtube video to a short.",
 	"author": "leochen.code@gmail.com",
 	"action": {
@@ -17,13 +17,13 @@
 	},
 	"content_scripts": [
 		{
-			"js": ["scripts/contentShort.js","scripts/contentVid.js"],
+			"js": ["scripts/contentShort.js", "scripts/contentVid.js"],
 			"matches": ["https://www.youtube.com/*"]
 		}
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["icons/iconWebCol.png","icons/iconVidWhite.png"],
+			"resources": ["icons/iconWebCol.png", "icons/iconVidWhite.png"],
 			"matches": ["https://www.youtube.com/*"]
 		}
 	],
