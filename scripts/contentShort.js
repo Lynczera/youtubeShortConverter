@@ -49,19 +49,31 @@ function insertButtonOnShort() {
 
 	var focus;
 	const menu = document.querySelectorAll("ytd-reel-video-renderer");
-	menu.forEach((el) => {
-		if (el.attributes["is-active"]) {
-			focus = el;
-		}
-	});
+	if (menu) {
+		menu.forEach((el) => {
+			if (el.attributes["is-active"]) {
+				focus = el;
+			}
+		});
+	}
 
 	if (focus) {
 		const container = focus.querySelector("#actions");
-		container.insertAdjacentElement("afterbegin", convertDiv);
+		if (container) {
+			container.insertAdjacentElement("afterbegin", convertDiv);
+		}
 	}
 }
-var delayInMilliseconds = 900;
 
-setTimeout(function () {
-	insertButtonOnShort();
-}, delayInMilliseconds);
+function waitForElement(elementId, callBack) {
+	window.setTimeout(function () {
+		var element = document.querySelector(elementId);
+		if (element) {
+			callBack();
+		} else {
+			waitForElement(elementId, callBack);
+		}
+	}, 100);
+}
+
+waitForElement("ytd-reel-video-renderer", () => insertButtonOnShort());

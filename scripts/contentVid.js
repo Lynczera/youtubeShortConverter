@@ -16,6 +16,9 @@ function insertButtonOnShort() {
 	convertBtn.appendChild(icon);
 
 	const controldiv = document.querySelector(".ytp-left-controls");
-
-	controldiv.insertAdjacentElement("beforeend", convertBtn);
+	if (controldiv) {
+		controldiv.insertAdjacentElement("beforeend", convertBtn);
+	}
 }
+
+insertButtonOnShort();

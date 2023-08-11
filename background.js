@@ -13,7 +13,6 @@ async function backGdRedirect() {
 				urlToGo = tab.url.replace("shorts", "watch");
 				videoID = tab.url.split("/").at(-1);
 
-				chrome.storage.session.set({ [videoID]: "true" });
 				chrome.tabs.update({ url: urlToGo });
 			} else if (tab.url.includes("watch")) {
 				var regExp =
@@ -26,15 +25,8 @@ async function backGdRedirect() {
 				}
 
 				if (videoID) {
-					chrome.storage.session.get([videoID]).then((result) => {
-						if (JSON.parse(result[videoID])) {
-							urlToGo = `https://www.youtube.com/shorts/${videoID}`;
-							chrome.storage.session.remove(videoID);
-							chrome.tabs.update({ url: urlToGo });
-						}
-					});
-				} else {
-					urlToGo = null;
+					urlToGo = `https://www.youtube.com/shorts/${videoID}`;
+					chrome.tabs.update({ url: urlToGo });
 				}
 			}
 		}
@@ -47,21 +39,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	}
 });
 
-try {
-	chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-		const url = tab.url;
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+	const url = tab.url;
 
-		if (changeInfo.status === "complete" && url.includes("shorts")) {
-			chrome.scripting.executeScript({
-				files: ["scripts/contentShort.js"],
-				target: { tabId: tab.id },
-			});
-		}
-		if (changeInfo.status === "complete" && url.includes("watch")) {
-			chrome.scripting.executeScript({
-				files: ["scripts/contentVid.js"],
-				target: { tabId: tab.id },
-			});
-		}
-	});
-} catch (err) {}
+	if (
+		changeInfo.status === "complete" &&
+		url.includes("www.youtube.com/shorts")
+	) {
+		chrome.scripting.executeScript({
+			files: ["scripts/contentShort.js"],
+			target: { tabId: tab.id },
+		});
+	}
+});

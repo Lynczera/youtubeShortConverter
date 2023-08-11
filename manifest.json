@@ -17,8 +17,8 @@
 	},
 	"content_scripts": [
 		{
-			"js": ["scripts/contentShort.js", "scripts/contentVid.js"],
-			"matches": ["https://www.youtube.com/*"]
+			"js": ["scripts/contentVid.js"],
+			"matches": ["https://www.youtube.com/watch*"]
 		}
 	],
 	"web_accessible_resources": [
@@ -28,7 +28,7 @@
 		}
 	],
 	"permissions": ["activeTab", "storage", "scripting", "tabs"],
-	"host_permissions": ["<all_urls>"],
+	"host_permissions": ["https://www.youtube.com/*"],
 	"commands": {
 		"_execute_action": {
 			"suggested_key": {
