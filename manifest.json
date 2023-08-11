@@ -27,7 +27,7 @@
 			"matches": ["https://www.youtube.com/*"]
 		}
 	],
-	"permissions": ["activeTab", "storage", "scripting", "tabs"],
+	"permissions": ["activeTab", "scripting", "tabs"],
 	"host_permissions": ["https://www.youtube.com/*"],
 	"commands": {
 		"_execute_action": {
